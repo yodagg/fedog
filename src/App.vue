@@ -43,6 +43,7 @@ export default {
 			voice:'什么？ 又有Bug？',
 			time:'',
 			content:'',
+			single:true,
 			arr:[]
 		}
 	},
@@ -61,29 +62,40 @@ export default {
 	},
 	methods:{
 		send(){
+			if(this.single===false){return}
+
+			this.single=false
 			let content=this.content
 			if( content != '' ){
-				let obj= new Object()
-				obj.logo=this.logo2
-				obj.title=this.user
-				obj.content=content
-				this.arr.push(obj)
+				this.create(content)
+				this.title='对方正在输入...'
 
 				axios.get(`http://wo2.me:8089?search=${content}`).then(data=>{
-					let obj= new Object()
-					obj.logo=this.logo1
-					obj.title=this.title
+					let str=''
 			        if( data.status!=200 ){
-			        	obj.content='你说啥？没听清，是不是你的网络有问题？'
+			        	str='你说啥？没听清，是不是你的网络有问题？'
 			        }else{
-			        	obj.content=data.data.content!=''?data.data.content:'这。。。我也不知道！'
+			        	str=data.data.content!=''?data.data.content:'这。。。我也不知道啊！'
 			        }
-
-			        this.arr.push(obj)
-
-			        this.scrollD()
+			        this.title='前端狗'
+			        this.create(str)
+			        this.single=true
 			    })
 			}
+		},
+		create(str){
+			let obj= new Object()
+			let nums= this.arr.length % 2
+			if( nums ){
+				obj.logo=this.logo2
+				obj.title=this.user
+			}else{
+				obj.logo=this.logo1
+				obj.title=this.title
+			}
+			obj.content=str
+			this.arr.push(obj)
+			this.scrollD()
 		},
 		scrollD(){
 			let div=document.querySelector('.main .in')
