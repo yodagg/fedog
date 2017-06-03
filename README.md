@@ -1,18 +1,10 @@
-# web-dog
+### 前端机器人
 
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
 ```
+ 无聊之作，其实就是根据关键字抓取51脚本网的教程 http://www.jb51.net/
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+ 不过还挺有意思的，计划后期加入 天气查询、笑话段子等功能
+
+ 欢迎issues及pr
+```
+[预览地址](http://wo2.me/fedog)
