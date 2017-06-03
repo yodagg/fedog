@@ -25,7 +25,7 @@
 		</div>
 		<div class="question">
 			<div class="in">
-				<input type="text" class="input" v-model="content">
+				<input type="text" class="input" v-model="content" @keydown.13="send()">
 				<span class="btn" @click="send()">发送</span>
 			</div>
 		</div>
@@ -40,7 +40,7 @@ export default {
 			user:'老辣鸡',
 			logo1:'img/logo1.jpg',
 			logo2:'img/logo2.jpg',
-			voice:'什么？ 又有Bug？',
+			voice:'',
 			time:'',
 			content:'',
 			single:true,
@@ -48,40 +48,43 @@ export default {
 		}
 	},
 	created(){
-		let localtime=new Date()
-		let time=localtime.getFullYear() + '-' + parseInt(localtime.getMonth() + 1) + '-' + localtime.getDate()
-		this.time=time
+
+		let localtime= new Date()
+		let time= localtime.getFullYear() + '-' + parseInt(localtime.getMonth() + 1) + '-' + localtime.getDate()
+		this.time= time
+		this.voice= this.act()
 	},
 	mounted(){
-		let obj=new Object()
-		obj.logo=this.logo1
-		obj.title=this.title
-		obj.content='hello，我是前端狗！'
-		this.arr.push(obj)
-
+		let time= null
+		time=setTimeout( () =>{
+			this.create('在下Fedog，略懂WEB开发。你可以向我提问！')
+			clearTimeout(time)
+		}, 1000)
 	},
 	methods:{
 		send(){
-			if(this.single===false){return}
+			if( !this.single ){ return }
+
+			let content=this.content
+			if( !content ){ return }
+			this.content= ''
 
 			this.single=false
-			let content=this.content
-			if( content != '' ){
-				this.create(content)
-				this.title='对方正在输入...'
+			this.create(content)
+			this.title='对方正在输入...'
 
-				axios.get(`http://wo2.me:8089?search=${content}`).then(data=>{
-					let str=''
-			        if( data.status!=200 ){
-			        	str='你说啥？没听清，是不是你的网络有问题？'
-			        }else{
-			        	str=data.data.content!=''?data.data.content:'这。。。我也不知道啊！'
-			        }
-			        this.title='前端狗'
-			        this.create(str)
-			        this.single=true
-			    })
-			}
+			axios.get(`//wo2.me:8089?search=${content}`).then(data=>{
+				let str=''
+		        if( data.status!=200 ){
+		        	str='你说啥？没听清，是不是你的网络有问题？'
+		        }else{
+		        	str=data.data.content!=''?data.data.content:this.act()
+		        }
+		        this.title='前端狗'
+		        this.create(str)
+		        this.single=true
+		    })
+			
 		},
 		create(str){
 			let obj= new Object()
@@ -100,6 +103,26 @@ export default {
 		scrollD(){
 			let div=document.querySelector('.main .in')
 			div.scrollTop = div.scrollHeight
+		},
+		number(max){
+			return Math.round(Math.random() * max)
+		},
+		act(){
+			let arr= [
+			'什么？又有Bug？',
+			'我写的代码是完美的，不可能有Bug。',
+			'世上应该不会有比我更机智的汪了！',
+			'听说过AlphaGo吗？对！就那个，那是我大表哥。',
+			'我的梦想是买很多很多很多的骨头。',
+			'你问我，我问谁去？',
+			'多喝热水。',
+			'想法总是那么美好，现实却是那么残酷。汪的一生。。。',
+			'编程只是我的副业，其实我是一位教育思想家。',
+			'PHP是世界上最好的语言！',
+			'可以教教我怎么写Bug吗？',
+			'这。。。我也不知道啊！'
+			]		
+			return arr[ this.number(arr.length-1) ]
 		}
 	}
 }
@@ -183,9 +206,8 @@ export default {
 		letter-spacing: 2px;
 	}
 	#app .question{
-		position: absolute;
-		left: 0;
-		bottom: 0;
+		height: 50px;
+		overflow: hidden;
 		width: 100%;
 		padding: 10px 0;
 		border-top: 1px solid rgba(30,35,42,.06);
