@@ -1,18 +1,20 @@
-const express=require('express')
-const request=require('request')
-const cheerio=require('cheerio')
-const obj=require('./newobj')
-const app=express()
+const request = require('request')
+const cheerio = require('cheerio')
 
-exports.joke=(res,q) =>{
-	let url= 'http://52dx.win/nr.php'
-	request( url, ( err, response, body ) =>{
-		if( !err && response.statusCode == 200 ){
-			let $= cheerio.load(body)
-			let object= obj.obj($('body').text())
-			res.send(object)
-		}else{
-			res.send(obj.obj('查询出错！'))
-		}
-	} )
+
+module.exports = () => {
+	let url = 'http://52dx.win/nr.php'
+	let content = ''
+    return new Promise(function (resolve, reject) {
+        request(url, (err, response, body) => {
+			if (!err && response.statusCode == 200) {
+				let $ = cheerio.load(body)
+				let text = $('body').text()
+				content = text
+			} else {
+				content = null
+			}
+			resolve(content)
+		})
+    })
 }

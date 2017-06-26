@@ -19,6 +19,10 @@ export default new router({
         {
         	path: '/user',
         	component: user
-        }
+        },
+        {
+            path: '/:search',
+            component: home
+        } 
     ]
 })

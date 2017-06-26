@@ -8,3 +8,5 @@
  欢迎issues及pr
 ```
 [预览地址](http://wo2.me/fedog)
+[更新日志](./updata.md)
+
