@@ -153,6 +153,7 @@ export default {
 		right: 1em;
 		bottom: 0.5em;
 	}
+
 	#home .content li{
 		display: flex;
 		margin: 10px 0;
@@ -221,10 +222,16 @@ export default {
 		#home .main .voice{
 			width: 70%;
 		}
+		#home .content{
+			width: calc(100% - 20px);
+		}
 	}
 </style>
 <style>
 	#home .content .text img{
 		max-width:100%;
+	}
+	.text iframe{
+		width: 100%;
 	}
 </style>

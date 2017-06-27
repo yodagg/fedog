@@ -4,7 +4,8 @@ const iconv = require('iconv-lite')
 
 
 module.exports = q => {
-	let url = `http://so.jb51.net/cse/search?q=${q}&click=1&s=10520733385329581432&nsid=`
+	let data = encodeURI(q)
+	let url = `http://so.jb51.net/cse/search?q=${data}&click=1&s=10520733385329581432&nsid=`
 	let content = ''
 	return new Promise((resolve, reject)=> {
 		request(url, (err, response, body) => {

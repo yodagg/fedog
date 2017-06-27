@@ -7,10 +7,9 @@ app.use(cors())
 
 app.get('/', (req, res)=>{
 	let data = req.query.search
-	let q = encodeURI(data)
 
 	let start = async type =>{
-	    let result = await type(q)
+	    let result = await type(data)
 	    if( result === null ){
 	    	result = api.random()
 	    }
@@ -19,6 +18,11 @@ app.get('/', (req, res)=>{
 
 	if( data.indexOf('笑话') != -1 || data.indexOf('段子') != -1 ){
 		start(api.joke)
+
+	}else if( data.indexOf('music') != -1 ){
+		
+		start(api.music)
+
 	}else{
 		start(api.search)
 	}
