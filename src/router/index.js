@@ -13,16 +13,16 @@ export default new router({
             component: home
         },
         {
-        	path: '/admin',
-        	component: admin
+            path: '/admin',
+            component: admin
         },
         {
-        	path: '/user',
-        	component: user
+            path: '/user',
+            component: user
         },
         {
             path: '/:search',
             component: home
-        } 
+        }
     ]
 })

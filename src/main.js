@@ -3,7 +3,7 @@ import axios from 'axios'
 import router from './router'
 import App from './App.vue'
 
-window.axios=axios
+window.axios = axios
 
 new Vue({
   el: '#app',

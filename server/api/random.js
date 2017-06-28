@@ -13,5 +13,5 @@ module.exports = () => {
 		'可以教教我怎么写Bug吗？',
 		'这。。。我也不知道啊！'
 	]
-	return arr[ Math.round(Math.random() * arr.length-1) ]
+	return arr[Math.round(Math.random() * arr.length - 1)]
 }

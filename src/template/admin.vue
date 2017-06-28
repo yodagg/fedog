@@ -5,19 +5,20 @@
 	</div>
 </template>
 <script>
-	export default {
+export default {
 
-	}
+}
 </script>
 <style scoped>
-	#user{
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	a{
-		font-size: 12px;
-	}
+#user {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+a {
+	font-size: 12px;
+}
 </style>

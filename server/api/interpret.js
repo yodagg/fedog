@@ -2,15 +2,23 @@ const request = require('request')
 const cheerio = require('cheerio')
 
 
-module.exports = () => {
-	let url = 'http://52dx.win/nr.php'
+module.exports = q => {
+	let text = q
+	let url = `http://fanyi.baidu.com/v2transapi?from=en&to=zh&query=${text}`
 	let content = ''
 	return new Promise(function (resolve, reject) {
 		request(url, (err, response, body) => {
 			if (!err && response.statusCode == 200) {
 				let $ = cheerio.load(body)
-				let text = $('body').text()
-				content = text
+				let str = $('body').text()
+				let data = JSON.parse(str)
+				let tag = data.liju_result.tag
+				if( tag.length){
+					content = tag
+				}else{
+					content = null
+				}
+				
 			} else {
 				content = null
 			}

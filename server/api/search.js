@@ -7,7 +7,7 @@ module.exports = q => {
 	let data = encodeURI(q)
 	let url = `http://so.jb51.net/cse/search?q=${data}&click=1&s=10520733385329581432&nsid=`
 	let content = ''
-	return new Promise((resolve, reject)=> {
+	return new Promise((resolve, reject) => {
 		request(url, (err, response, body) => {
 			if (!err && response.statusCode == 200) {
 				let j = cheerio.load(body)
