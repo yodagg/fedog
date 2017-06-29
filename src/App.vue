@@ -27,4 +27,21 @@
 		display: block;
 		font-size: 0;
 	}
+	#home .content .text img {
+		max-width: 100%;
+	}
+	.text iframe {
+		width: 100%;
+	}
+	pre {
+		white-space: pre-wrap;
+		white-space: -moz-pre-wrap;
+		white-space: -pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+	}
+	input{
+		-webkit-appearance:none;
+		outline:none
+	}
 </style>

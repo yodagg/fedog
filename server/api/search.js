@@ -13,9 +13,9 @@ module.exports = q => {
 				let j = cheerio.load(body)
 				let href = j("#results a").eq(0).attr("href")
 
-				request({ encoding: null, url: href }, (err, resp, main) => {
+				request({ encoding: null, url: href }, (err, res, main) => {
 					main = iconv.decode(main, 'gb2312').toString()
-					if (!err && resp.statusCode == 200) {
+					if (!err && res.statusCode == 200) {
 						let $ = cheerio.load(main)
 						let text = $("#content").html()
 						content = text
