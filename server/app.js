@@ -3,16 +3,27 @@ const cors = require('cors')
 const api = require('./api/')
 const app = express()
 
-app.use(cors())
+var whitelist = ['http://wo2.me','http://localhost:8082']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback('error')
+    }
+  }
+}
 
 
-app.get('/', (req, res) => {
+app.get('/',cors(corsOptions), (req, res) => {
 	let data = req.query.search
-
+	console.log(data,current_time())
 	let start = async type => {
 		let result = await type(data)
 		if (result === null) {
-			result = api.random()
+			let call = await api.yellow(data)
+
+			result = call.indexOf('图灵') != -1 ? api.random() : call
 		}
 		res.send(result)
 	}
@@ -30,11 +41,30 @@ app.get('/', (req, res) => {
 
 }).listen(8089)
 
-app.get('/fanyi', (req, res) => {
+app.get('/fanyi',cors(corsOptions), (req, res) => {
 	let data = req.query.search
 	let fn = async type => {
 		let content = await api.interpret(data)
-		res.send(content)
+
+		res.send(content === null ? api.random() : content)
 	}
 	fn()
 })
+
+function current_time() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}

@@ -13,7 +13,7 @@ module.exports = q => {
 				let str = $('body').text()
 				let data = JSON.parse(str)
 				let tag = data.liju_result.tag
-				if( tag.length){
+				if( tag && tag.length){
 					content = tag
 				}else{
 					content = null
